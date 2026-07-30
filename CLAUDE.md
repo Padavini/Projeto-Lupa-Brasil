@@ -60,10 +60,10 @@ lupa-camara/
 
 Atualizar esta seção conforme o projeto avança — é o que dá contexto de "onde estamos" a cada nova sessão.
 
-- Módulo em andamento: **6 — Modelos Supervisionados** (Módulos 1-5 concluídos)
-- Último entregável concluído: Módulo 5 — `src/preprocessing.py` (target `houve_glosa`, split out-of-time, pipeline scikit-learn, comparação SMOTE/undersampling/class_weight), `tests/test_preprocessing.py` (4 testes, incluindo prova de ausência de leakage), `docs/target_e_balanceamento.md`. Proporção real de glosa: 4,791% (30.687 de 640.518 despesas).
+- Módulo em andamento: **7 — Ensembles, MLflow e Explicabilidade** (Módulos 1-6 concluídos)
+- Último entregável concluído: Módulo 6 — `notebooks/03_modelos_supervisionados.ipynb` (Regressão Logística, KNN, Naive Bayes, SVM linear prevendo `houve_glosa`) e `docs/comparativo_modelos.md`. KNN venceu em PR-AUC (0,321) e em custo total (R$ 706.750); Naive Bayes teve o maior recall (95%) mas foi o pior modelo pelo critério de custo (R$ 1.970.750) por sinalizar 38 mil despesas legítimas à toa — reforça que métrica isolada engana, custo de negócio decide.
 - Achado pendente (qualidade de dado, não resolvido): nomes de fornecedor fragmentados para suppliers menores sem CNPJ (só as 3 maiores companhias aéreas foram normalizadas no Módulo 3).
-- Próximo passo: Módulo 6 — treinar Regressão Logística/KNN/Naive Bayes/SVM prevendo `houve_glosa` (mesmo split out-of-time), métricas (PR-AUC priorizada), tabela de custo FP/FN.
+- Próximo passo: Módulo 7 — MLflow tracking, XGBoost/LightGBM/CatBoost com tuning via Optuna, SHAP (global + 3 despesas reais), calibração de threshold pela curva PR.
 
 ## Como pedir ajuda aqui
 
