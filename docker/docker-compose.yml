@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: lupa-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: lupa
+      POSTGRES_PASSWORD: lupa_dev_local
+      POSTGRES_DB: lupa_camara
+    ports:
+      - "5432:5432"
+    volumes:
+      - lupa_pg_data:/var/lib/postgresql/data
+
+volumes:
+  lupa_pg_data:
