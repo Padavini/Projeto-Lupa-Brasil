@@ -60,10 +60,10 @@ lupa-camara/
 
 Atualizar esta seção conforme o projeto avança — é o que dá contexto de "onde estamos" a cada nova sessão.
 
-- Módulo em andamento: **5 — Fundamentos de Machine Learning** (Módulos 1-4 concluídos)
-- Último entregável concluído: Módulo 4 (Estatística e Inferência) — `notebooks/02_inferencia_estatistica.ipynb` com intervalos de confiança, `docs/confundidor_geografico.md` (distância até Brasília é estatisticamente significativa para gasto, partido sozinho não é a 5%) e `docs/ab_test_design.md` (teto de reembolso de combustível: com 512 deputados, MDE de 5-10% é inviável de detectar; simulação com MDE 20% ilustrou o conceito de poder estatístico/falso negativo na prática).
-- Achado pendente (qualidade de dado, não resolvido): `dim_fornecedor`/nomes de fornecedor fragmentados para suppliers menores sem CNPJ (só as 3 maiores companhias aéreas foram normalizadas no Módulo 3).
-- Próximo passo: Módulo 5 — criar target `houve_glosa`, pipeline de pré-processamento com scikit-learn, split out-of-time por `dataDocumento`, comparar balanceamento com imbalanced-learn.
+- Módulo em andamento: **6 — Modelos Supervisionados** (Módulos 1-5 concluídos)
+- Último entregável concluído: Módulo 5 — `src/preprocessing.py` (target `houve_glosa`, split out-of-time, pipeline scikit-learn, comparação SMOTE/undersampling/class_weight), `tests/test_preprocessing.py` (4 testes, incluindo prova de ausência de leakage), `docs/target_e_balanceamento.md`. Proporção real de glosa: 4,791% (30.687 de 640.518 despesas).
+- Achado pendente (qualidade de dado, não resolvido): nomes de fornecedor fragmentados para suppliers menores sem CNPJ (só as 3 maiores companhias aéreas foram normalizadas no Módulo 3).
+- Próximo passo: Módulo 6 — treinar Regressão Logística/KNN/Naive Bayes/SVM prevendo `houve_glosa` (mesmo split out-of-time), métricas (PR-AUC priorizada), tabela de custo FP/FN.
 
 ## Como pedir ajuda aqui
 
