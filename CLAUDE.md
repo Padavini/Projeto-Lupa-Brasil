@@ -60,9 +60,10 @@ lupa-camara/
 
 Atualizar esta seção conforme o projeto avança — é o que dá contexto de "onde estamos" a cada nova sessão.
 
-- Módulo em andamento: **1 — Data Product Brief e setup do repositório**
-- Último entregável concluído: nenhum ainda
-- Próximo passo: ver o desafio do módulo atual no documento da trilha e abrir o Data Product Brief em `docs/`
+- Módulo em andamento: **3 — Python para Cientistas de Dados** (Módulos 1 e 2 concluídos)
+- Último entregável concluído: Módulo 2 — ingestão da API (`src/ingest.py`), Postgres via Docker local (`docker/docker-compose.yml`), star schema (`sql/schema.sql`, `sql/populate_star_schema.sql`), window functions (`sql/queries_window_functions.sql`), views de KPI (`sql/views/kpis.sql`) e otimização documentada (`docs/query_optimization.md`). Dado carregado: 512 deputados, 640.518 despesas, eleição 2022 em diante.
+- Achado pendente pro Módulo 3: `dim_fornecedor` tem registros duplicados quando `cnpj_cpf_fornecedor` é ausente (ex.: "TAM" com 4 ids distintos) — tratar junto da limpeza de nomes de fornecedor.
+- Próximo passo: ambiente reprodutível com uv/Poetry, EDA em pandas sobre o star schema, primeiras visualizações.
 
 ## Como pedir ajuda aqui
 
