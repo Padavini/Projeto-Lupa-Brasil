@@ -60,10 +60,10 @@ lupa-camara/
 
 Atualizar esta seção conforme o projeto avança — é o que dá contexto de "onde estamos" a cada nova sessão.
 
-- Módulo em andamento: **3 — Python para Cientistas de Dados** (Módulos 1 e 2 concluídos)
-- Último entregável concluído: Módulo 3 (EDA) — ambiente reprodutível com `uv` (`pyproject.toml`, `uv.lock`), `notebooks/01_eda.ipynb` com distribuições, ranking, evolução mensal, 6 visualizações (matplotlib/seaborn/plotly), e `docs/eda_findings.md` com os 5 achados principais.
-- Achados pendentes pro restante do Módulo 3 / Módulo 4: `dim_fornecedor` tem registros duplicados quando `cnpj_cpf_fornecedor` é ausente (ex.: "TAM"/"AZUL"/"GOL" fragmentados) — 19,4% das despesas, todas de "PASSAGEM AÉREA - SIGEPA", não têm CNPJ; confundidor geográfico no ranking de gasto individual, a formalizar estatisticamente no Módulo 4.
-- Próximo passo: tratar normalização de nome de fornecedor (parte final do Módulo 3), depois seguir pro Módulo 4 (estatística e inferência).
+- Módulo em andamento: **5 — Fundamentos de Machine Learning** (Módulos 1-4 concluídos)
+- Último entregável concluído: Módulo 4 (Estatística e Inferência) — `notebooks/02_inferencia_estatistica.ipynb` com intervalos de confiança, `docs/confundidor_geografico.md` (distância até Brasília é estatisticamente significativa para gasto, partido sozinho não é a 5%) e `docs/ab_test_design.md` (teto de reembolso de combustível: com 512 deputados, MDE de 5-10% é inviável de detectar; simulação com MDE 20% ilustrou o conceito de poder estatístico/falso negativo na prática).
+- Achado pendente (qualidade de dado, não resolvido): `dim_fornecedor`/nomes de fornecedor fragmentados para suppliers menores sem CNPJ (só as 3 maiores companhias aéreas foram normalizadas no Módulo 3).
+- Próximo passo: Módulo 5 — criar target `houve_glosa`, pipeline de pré-processamento com scikit-learn, split out-of-time por `dataDocumento`, comparar balanceamento com imbalanced-learn.
 
 ## Como pedir ajuda aqui
 
