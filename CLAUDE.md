@@ -61,9 +61,9 @@ lupa-camara/
 Atualizar esta seção conforme o projeto avança — é o que dá contexto de "onde estamos" a cada nova sessão.
 
 - Módulo em andamento: **3 — Python para Cientistas de Dados** (Módulos 1 e 2 concluídos)
-- Último entregável concluído: Módulo 2 — ingestão da API (`src/ingest.py`), Postgres via Docker local (`docker/docker-compose.yml`), star schema (`sql/schema.sql`, `sql/populate_star_schema.sql`), window functions (`sql/queries_window_functions.sql`), views de KPI (`sql/views/kpis.sql`) e otimização documentada (`docs/query_optimization.md`). Dado carregado: 512 deputados, 640.518 despesas, eleição 2022 em diante.
-- Achado pendente pro Módulo 3: `dim_fornecedor` tem registros duplicados quando `cnpj_cpf_fornecedor` é ausente (ex.: "TAM" com 4 ids distintos) — tratar junto da limpeza de nomes de fornecedor.
-- Próximo passo: ambiente reprodutível com uv/Poetry, EDA em pandas sobre o star schema, primeiras visualizações.
+- Último entregável concluído: Módulo 3 (EDA) — ambiente reprodutível com `uv` (`pyproject.toml`, `uv.lock`), `notebooks/01_eda.ipynb` com distribuições, ranking, evolução mensal, 6 visualizações (matplotlib/seaborn/plotly), e `docs/eda_findings.md` com os 5 achados principais.
+- Achados pendentes pro restante do Módulo 3 / Módulo 4: `dim_fornecedor` tem registros duplicados quando `cnpj_cpf_fornecedor` é ausente (ex.: "TAM"/"AZUL"/"GOL" fragmentados) — 19,4% das despesas, todas de "PASSAGEM AÉREA - SIGEPA", não têm CNPJ; confundidor geográfico no ranking de gasto individual, a formalizar estatisticamente no Módulo 4.
+- Próximo passo: tratar normalização de nome de fornecedor (parte final do Módulo 3), depois seguir pro Módulo 4 (estatística e inferência).
 
 ## Como pedir ajuda aqui
 

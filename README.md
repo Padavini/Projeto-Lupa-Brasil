@@ -2,7 +2,7 @@
 
 Painel público de transparência sobre gastos (CEAP) e atuação de deputados federais, construído sobre a [API de Dados Abertos da Câmara dos Deputados](https://dadosabertos.camara.leg.br/swagger/api.html).
 
-> ⚠️ Projeto em construção — módulo 1 de 12. Ver estado atual em [CLAUDE.md](CLAUDE.md).
+> ⚠️ Projeto em construção — módulo 3 de 12. Ver estado atual em [CLAUDE.md](CLAUDE.md).
 
 ## O que é
 
@@ -51,6 +51,16 @@ lupa-camara/
 | 11. Engenharia de Software | Pacote `src/lupa/`, testes, API FastAPI, CI |
 | 12. MLOps | Docker Compose, CD, monitoramento de drift |
 | Final | Painel público (Streamlit/Power BI) |
+
+## Principais achados até aqui
+
+Análise sobre 640.518 despesas de 512 deputados (2022 até hoje, R$ 801,7 milhões no total). Lista completa em [docs/eda_findings.md](docs/eda_findings.md).
+
+1. O ranking de gasto individual é dominado por um confundidor geográfico — deputados de UFs distantes/grandes lideram por causa de deslocamento, não necessariamente por comportamento irregular.
+2. Gasto total por partido reflete tamanho de bancada; comparação justa exige normalizar pelo número de deputados.
+3. Companhias aéreas concentram gasto, mas aparecem fragmentadas sob nomes diferentes por falta de CNPJ em despesas de passagem — um problema de qualidade de dado sistemático, não aleatório.
+4. Valores negativos existem (10.142 despesas) e têm explicação mundana: estornos de tarifa aérea, não erro ou irregularidade.
+5. A regra clássica de outlier (1,5×IQR) sinaliza 10% do dado como "atípico" — volume alto demais pra ser útil, por causa da assimetria natural do gasto. Detecção de anomalia vai exigir métodos mais sofisticados (Módulo 8).
 
 ## Como rodar
 
