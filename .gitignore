@@ -18,6 +18,9 @@ venv/
 
 # MLflow
 mlruns/
+mlflow.db
+mlartifacts/
+catboost_info/
 
 # Env
 .env
