@@ -60,11 +60,10 @@ lupa-camara/
 
 Atualizar esta seção conforme o projeto avança — é o que dá contexto de "onde estamos" a cada nova sessão.
 
-- Módulo em andamento: **8 — Aprendizado Não Supervisionado e Detecção de Anomalias** (Módulos 1-7 concluídos)
-- Último entregável concluído: Módulo 7 — `notebooks/04_ensembles_mlflow_shap.ipynb`, MLflow (backend SQLite `mlflow.db`, 66 runs, experimento `lupa-houve-glosa`), LightGBM promovido no Model Registry (`lupa-houve-glosa-lightgbm` v1, PR-AUC 0,4121 no teste real — melhora clara sobre o baseline do Módulo 6). `docs/mlflow_experimentos.md`, `docs/shap_report.md` (global + 3 despesas reais), `docs/threshold_calibration.md` (threshold ótimo 0,673 economiza R$ 78 mil vs. 0,5 padrão; calibração isotônica melhora Brier score em 70,8%).
-- Decisão técnica: pandas fixado em `>=2.2,<3` no `pyproject.toml` — MLflow ainda não suporta pandas 3.x. Notebooks anteriores re-executados e testes automatizados confirmados passando após o downgrade.
+- Módulo em andamento: **9 — Redes Neurais e Modelos Generativos (bases)** (Módulos 1-8 concluídos)
+- Último entregável concluído: Módulo 8 — `notebooks/05_nao_supervisionado.ipynb`, `docs/perfis_de_gasto.md` (K-Means k=4: perfis "viajante"/"divulgador"/"operacional"/caso isolado; HDBSCAN classificou 89,8% dos deputados como "ruído", sem padrão denso — achado válido, não falha), `docs/deteccao_anomalias_vs_glosa.md` (Isolation Forest com sinal fraco mas real — ~2x melhor que acaso; LOF equivalente a chute aleatório; ambos muito abaixo do supervisionado do Módulo 7 — reforça a escolha por ML supervisionado como abordagem principal).
 - Achado pendente (qualidade de dado, não resolvido): nomes de fornecedor fragmentados para suppliers menores sem CNPJ (só as 3 maiores companhias aéreas foram normalizadas no Módulo 3).
-- Próximo passo: Módulo 8 — PCA/UMAP, K-Means/HDBSCAN, Isolation Forest e LOF sem usar `houve_glosa`, comparando com o rótulo real só ao final.
+- Próximo passo: Módulo 9 — MLP em PyTorch prevendo glosa (comparar com XGBoost/LightGBM do Módulo 7), labs de CNN/Autoencoders (Fashion MNIST), LSTM prevendo gasto do próximo mês.
 
 ## Como pedir ajuda aqui
 
