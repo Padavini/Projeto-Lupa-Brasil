@@ -60,10 +60,10 @@ lupa-camara/
 
 Atualizar esta seção conforme o projeto avança — é o que dá contexto de "onde estamos" a cada nova sessão.
 
-- Módulo em andamento: **9 — Redes Neurais e Modelos Generativos (bases)** (Módulos 1-8 concluídos)
-- Último entregável concluído: Módulo 8 — `notebooks/05_nao_supervisionado.ipynb`, `docs/perfis_de_gasto.md` (K-Means k=4: perfis "viajante"/"divulgador"/"operacional"/caso isolado; HDBSCAN classificou 89,8% dos deputados como "ruído", sem padrão denso — achado válido, não falha), `docs/deteccao_anomalias_vs_glosa.md` (Isolation Forest com sinal fraco mas real — ~2x melhor que acaso; LOF equivalente a chute aleatório; ambos muito abaixo do supervisionado do Módulo 7 — reforça a escolha por ML supervisionado como abordagem principal).
+- Módulo em andamento: **10 — IA Generativa: RAG e Fine-Tuning** (Módulos 1-9 concluídos)
+- Último entregável concluído: Módulo 9 — `notebooks/06_mlp_pytorch.ipynb` (MLP PR-AUC 0,3493 vs. LightGBM 0,4121 — árvore venceu, esperado em dado tabular), `notebooks/07_cnn_autoencoder_fashion_mnist.ipynb` (ResNet18 transfer learning 77,55% acurácia; Autoencoder MSE 0,020), `notebooks/08_lstm_gasto_mensal.ipynb` (LSTM MAE R$ 17.186 vs. baseline ingênuo R$ 16.778 — não superou, achado honesto), `docs/quando_usar_deep_learning.md`. Bônus (classificador de texto HuggingFace) deliberadamente não feito, é opcional na trilha.
 - Achado pendente (qualidade de dado, não resolvido): nomes de fornecedor fragmentados para suppliers menores sem CNPJ (só as 3 maiores companhias aéreas foram normalizadas no Módulo 3).
-- Próximo passo: Módulo 9 — MLP em PyTorch prevendo glosa (comparar com XGBoost/LightGBM do Módulo 7), labs de CNN/Autoencoders (Fashion MNIST), LSTM prevendo gasto do próximo mês.
+- Próximo passo: Módulo 10 — pipeline de RAG (LangChain/LlamaIndex) sobre proposições legislativas, confidence scoring/fallback, avaliação com 15+ perguntas reais.
 
 ## Como pedir ajuda aqui
 
