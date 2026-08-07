@@ -11,15 +11,17 @@ from src.preprocessing import (
 
 
 def _df_exemplo() -> pd.DataFrame:
-    return pd.DataFrame({
-        "categoria": ["COMBUSTIVEL", "TELEFONIA", "COMBUSTIVEL", "PASSAGEM", "TELEFONIA"],
-        "partido": ["PL", "PT", "PL", "PP", "PT"],
-        "uf": ["SP", "AM", "SP", "RR", "AM"],
-        "valor_documento": [100.0, 200.0, 150.0, 300.0, 50.0],
-        "valor_glosa": [0.0, 10.0, 0.0, 0.0, 5.0],
-        "ano": [2023, 2023, 2024, 2024, 2025],
-        "mes": [1, 6, 3, 11, 2],
-    })
+    return pd.DataFrame(
+        {
+            "categoria": ["COMBUSTIVEL", "TELEFONIA", "COMBUSTIVEL", "PASSAGEM", "TELEFONIA"],
+            "partido": ["PL", "PT", "PL", "PP", "PT"],
+            "uf": ["SP", "AM", "SP", "RR", "AM"],
+            "valor_documento": [100.0, 200.0, 150.0, 300.0, 50.0],
+            "valor_glosa": [0.0, 10.0, 0.0, 0.0, 5.0],
+            "ano": [2023, 2023, 2024, 2024, 2025],
+            "mes": [1, 6, 3, 11, 2],
+        }
+    )
 
 
 def test_criar_target_reflete_valor_glosa():
@@ -37,9 +39,9 @@ def test_split_out_of_time_nao_sobrepoe_periodo():
     ultimo_periodo_treino = max(periodo_treino)
     primeiro_periodo_teste = min(periodo_teste)
 
-    assert ultimo_periodo_treino < primeiro_periodo_teste, (
-        "Vazamento temporal: existe linha no treino com data >= alguma linha do teste"
-    )
+    assert (
+        ultimo_periodo_treino < primeiro_periodo_teste
+    ), "Vazamento temporal: existe linha no treino com data >= alguma linha do teste"
 
 
 def test_split_out_of_time_nao_e_aleatorio():

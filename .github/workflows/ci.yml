@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+
+      - name: Instalar dependências
+        run: uv sync --all-groups
+
+      - name: Lint (ruff)
+        run: uv run ruff check src/ api/ tests/ scripts/
+
+      - name: Formatação (black --check)
+        run: uv run black --check src/ api/ tests/ scripts/
+
+      - name: Testes (pytest)
+        run: uv run pytest tests/ -v

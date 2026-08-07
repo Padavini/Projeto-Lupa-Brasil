@@ -60,11 +60,10 @@ lupa-camara/
 
 Atualizar esta seção conforme o projeto avança — é o que dá contexto de "onde estamos" a cada nova sessão.
 
-- Módulo em andamento: **11 — Engenharia de Software para Cientistas de Dados** (Módulos 1-10 concluídos)
-- Último entregável concluído: Módulo 10 — `src/rag_pipeline.py` (RAG 100% gratuito/local: embeddings `sentence-transformers` multilingue, FAISS, geração `google/flan-t5-base`), índice sobre 14.283 proposições reais (gerais 2023-2024 + 8 deputados via `idDeputadoAutor`). `docs/rag_eval.md` (avaliação honesta com 16 perguntas: recusa correta em 2/3 armadilhas, cita fonte real em 100% das respostas, mas citação por autor errada em 2/8 casos e geração em português fraca — 4/13 respostas com intrusão de inglês, por ser modelo majoritariamente treinado em inglês). `notebooks/09_finetuning_lora.ipynb` + `docs/finetuning_lora_vs_prompt.md` (LoRA no BERTimbau: 86% de acurácia treinando 0,27% dos parâmetros, vs. 27% do zero-shot com flan-t5 — quase nível de chute aleatório).
-- Decisão técnica: confiança do RAG calibrada empiricamente (distância L2 do FAISS: perguntas relevantes ~10-13, fora do domínio ~28-33) — fórmula inicial "chutada" havia recusado tudo.
+- Módulo em andamento: **12 — MLOps: Produtização, Monitoramento e Retreino** (Módulos 1-11 concluídos)
+- Último entregável concluído: Módulo 11 — pacote `src/lupa/` (`db.py`, `ingestao.py`, `features.py`, `modelo.py`, `explicador.py`, `proposicoes.py`, `schemas.py`), `scripts/treinar_artefatos.py` (persiste `models/preprocessador.joblib` e `models/modelo_perfil_gasto.joblib`), `api/main.py` (FastAPI, endpoint `/deputado/{nome}/resumo` consolidando gasto/ranking/cluster/risco explicado via SHAP/proposições recentes num payload só, testado manualmente e com integração automatizada). `tests/` com 14 testes (unitários + integração ponta a ponta via `TestClient`, integração pula automaticamente se Postgres/artefatos indisponíveis). `ruff`+`black` configurados e 100% limpos. `.github/workflows/ci.yml`. `pip install -e .` (via `uv pip install -e .`) confirmado funcionando.
 - Achado pendente (qualidade de dado, não resolvido): nomes de fornecedor fragmentados para suppliers menores sem CNPJ (só as 3 maiores companhias aéreas foram normalizadas no Módulo 3).
-- Próximo passo: Módulo 11 — refatorar em pacote `src/lupa/` (CookieCutter Data Science), testes pytest unitários+integração, ruff/black, GitHub Actions CI, API FastAPI com endpoint `/deputado/{nome}/resumo`.
+- Próximo passo: Módulo 12 — Docker Compose (multi-stage), CI/CD com triggers de retreino, monitoramento de drift com Evidently AI, deploy em cloud free tier com URL pública.
 
 ## Como pedir ajuda aqui
 

@@ -9,10 +9,10 @@ import os
 from dataclasses import dataclass
 
 import requests
-from langchain_core.documents import Document
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
+from langchain_core.documents import Document
 from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
 BASE_URL = "https://dadosabertos.camara.leg.br/api/v2"
@@ -54,7 +54,9 @@ def fetch_proposicoes_gerais(anos: list[int], max_paginas_por_ano: int = 15) -> 
         while url and paginas_lidas < max_paginas_por_ano:
             pagina = _fetch_com_retry(url, params=params)
             proposicoes.extend(pagina["dados"])
-            proximo = next((l["href"] for l in pagina["links"] if l["rel"] == "next"), None)
+            proximo = next(
+                (link["href"] for link in pagina["links"] if link["rel"] == "next"), None
+            )
             url, params = proximo, None
             paginas_lidas += 1
     return proposicoes
@@ -70,7 +72,7 @@ def fetch_proposicoes_por_autor(deputado_id: int, nome_deputado: str) -> list[di
         for p in pagina["dados"]:
             p["autor"] = nome_deputado
         resultado.extend(pagina["dados"])
-        url = next((l["href"] for l in pagina["links"] if l["rel"] == "next"), None)
+        url = next((link["href"] for link in pagina["links"] if link["rel"] == "next"), None)
         params = None
     return resultado
 
@@ -82,17 +84,21 @@ def construir_documentos(proposicoes: list[dict]) -> list[Document]:
         if not p.get("ementa"):
             continue
         texto = f"{p['siglaTipo']} {p['numero']}/{p['ano']}: {p['ementa']}"
-        documentos.append(Document(
-            page_content=texto,
-            metadata={
-                "id": p["id"],
-                "tipo": p["siglaTipo"],
-                "numero": p["numero"],
-                "ano": p["ano"],
-                "uri": p["uri"].replace("api/v2/proposicoes", "propostas-legislativas/-/proposicao"),
-                "autor": p.get("autor", "não identificado"),
-            },
-        ))
+        documentos.append(
+            Document(
+                page_content=texto,
+                metadata={
+                    "id": p["id"],
+                    "tipo": p["siglaTipo"],
+                    "numero": p["numero"],
+                    "ano": p["ano"],
+                    "uri": p["uri"].replace(
+                        "api/v2/proposicoes", "propostas-legislativas/-/proposicao"
+                    ),
+                    "autor": p.get("autor", "não identificado"),
+                },
+            )
+        )
     return documentos
 
 
@@ -141,7 +147,9 @@ def responder(pergunta: str, indice: FAISS, k: int = 4) -> RespostaRAG:
     resultados = indice.similarity_search_with_score(pergunta, k=k)
 
     if not resultados:
-        return RespostaRAG("Não encontrei nenhuma proposição relevante para essa pergunta.", 0.0, [], True)
+        return RespostaRAG(
+            "Não encontrei nenhuma proposição relevante para essa pergunta.", 0.0, [], True
+        )
 
     # FAISS retorna distância L2 (menor = mais parecido) - convertida numa confiança 0-1
     distancia_mais_proxima = resultados[0][1]
@@ -151,7 +159,9 @@ def responder(pergunta: str, indice: FAISS, k: int = 4) -> RespostaRAG:
         return RespostaRAG(
             "Não tenho confiança suficiente pra responder com base nas proposições que encontrei. "
             "Recomendo checar diretamente no site da Câmara dos Deputados.",
-            confianca, [], True,
+            confianca,
+            [],
+            True,
         )
 
     contexto = "\n".join(doc.page_content for doc, _ in resultados)
@@ -163,7 +173,9 @@ def responder(pergunta: str, indice: FAISS, k: int = 4) -> RespostaRAG:
 
     fontes = [
         {
-            "tipo_numero_ano": f"{doc.metadata['tipo']} {doc.metadata['numero']}/{doc.metadata['ano']}",
+            "tipo_numero_ano": (
+                f"{doc.metadata['tipo']} {doc.metadata['numero']}/{doc.metadata['ano']}"
+            ),
             "autor": doc.metadata["autor"],
             "uri": doc.metadata["uri"],
         }

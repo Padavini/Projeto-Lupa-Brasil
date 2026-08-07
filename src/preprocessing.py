@@ -62,18 +62,24 @@ def split_out_of_time(
 
 def construir_pipeline_preprocessamento() -> ColumnTransformer:
     """Pipeline de scaling + encoding + tratamento de ausentes."""
-    transformador_numerico = Pipeline([
-        ("imputer", SimpleImputer(strategy="median")),
-        ("scaler", StandardScaler()),
-    ])
-    transformador_categorico = Pipeline([
-        ("imputer", SimpleImputer(strategy="constant", fill_value="desconhecido")),
-        ("encoder", OneHotEncoder(handle_unknown="ignore")),
-    ])
-    return ColumnTransformer([
-        ("num", transformador_numerico, COLUNAS_NUMERICAS),
-        ("cat", transformador_categorico, COLUNAS_CATEGORICAS),
-    ])
+    transformador_numerico = Pipeline(
+        [
+            ("imputer", SimpleImputer(strategy="median")),
+            ("scaler", StandardScaler()),
+        ]
+    )
+    transformador_categorico = Pipeline(
+        [
+            ("imputer", SimpleImputer(strategy="constant", fill_value="desconhecido")),
+            ("encoder", OneHotEncoder(handle_unknown="ignore")),
+        ]
+    )
+    return ColumnTransformer(
+        [
+            ("num", transformador_numerico, COLUNAS_NUMERICAS),
+            ("cat", transformador_categorico, COLUNAS_CATEGORICAS),
+        ]
+    )
 
 
 def comparar_balanceamento(X_treino, y_treino) -> dict[str, dict[int, int]]:

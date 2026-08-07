@@ -6,8 +6,9 @@ Módulo 2 - grava dado bruto (raw) no Postgres. O star schema
 
 import os
 import time
+from collections.abc import Iterator
 from datetime import date
-from typing import Any, Iterator
+from typing import Any
 
 import psycopg2
 import requests
@@ -62,8 +63,7 @@ def fetch_paginated(
 
         # entrega um item de cada vez pra quem está usando essa função,
         # em vez de montar uma lista gigante com tudo na memória
-        for item in pagina["dados"]:
-            yield item
+        yield from pagina["dados"]
 
         # procura, na lista de links, o que tem rel == "next" (o "bilhete"
         # dizendo onde buscar a próxima página); se não achar, vira None
@@ -80,8 +80,7 @@ def create_raw_tables(conn: psycopg2.extensions.connection) -> None:
     # um "cursor" é o objeto que de fato envia comandos SQL pro Postgres
     # e recebe as respostas - pensa nele como o "microfone" da conexão
     with conn.cursor() as cur:
-        cur.execute(
-            """
+        cur.execute("""
             CREATE TABLE IF NOT EXISTS raw_deputados (
                 id INTEGER PRIMARY KEY,
                 nome TEXT,
@@ -89,10 +88,8 @@ def create_raw_tables(conn: psycopg2.extensions.connection) -> None:
                 sigla_uf TEXT,
                 id_legislatura INTEGER
             )
-            """
-        )
-        cur.execute(
-            """
+            """)
+        cur.execute("""
             CREATE TABLE IF NOT EXISTS raw_despesas (
                 cod_documento TEXT,
                 num_documento TEXT,
@@ -111,8 +108,7 @@ def create_raw_tables(conn: psycopg2.extensions.connection) -> None:
                 -- a combinação dos 3 campos abaixo é que garante unicidade.
                 PRIMARY KEY (deputado_id, cod_documento, num_documento)
             )
-            """
-        )
+            """)
     # nada do que rodamos acima é gravado de fato até dar o "commit" -
     # é o mesmo conceito do git: as tabelas ficam "propostas" até confirmar
     conn.commit()
@@ -163,9 +159,9 @@ def upsert_despesas(
                     valor_glosa, nome_fornecedor, cnpj_cpf_fornecedor
                 )
                 VALUES (
-                    %(codDocumento)s, %(numDocumento)s, %(deputado_id)s, %(ano)s, %(mes)s, %(tipoDespesa)s,
-                    %(dataDocumento)s, %(valorDocumento)s, %(valorLiquido)s,
-                    %(valorGlosa)s, %(nomeFornecedor)s, %(cnpjCpfFornecedor)s
+                    %(codDocumento)s, %(numDocumento)s, %(deputado_id)s, %(ano)s,
+                    %(mes)s, %(tipoDespesa)s, %(dataDocumento)s, %(valorDocumento)s,
+                    %(valorLiquido)s, %(valorGlosa)s, %(nomeFornecedor)s, %(cnpjCpfFornecedor)s
                 )
                 ON CONFLICT (deputado_id, cod_documento, num_documento) DO UPDATE SET
                     ano = EXCLUDED.ano,
@@ -204,9 +200,7 @@ def main() -> None:
     for i, deputado in enumerate(deputados, start=1):
         total_despesas = 0
         for ano in range(ANO_INICIAL, ano_corrente + 1):
-            despesas = fetch_paginated(
-                f"/deputados/{deputado['id']}/despesas", params={"ano": ano}
-            )
+            despesas = fetch_paginated(f"/deputados/{deputado['id']}/despesas", params={"ano": ano})
             total_despesas += upsert_despesas(conn, deputado["id"], despesas)
         print(f"[{i}/{len(deputados)}] {deputado['nome']}: {total_despesas} despesas")
 
