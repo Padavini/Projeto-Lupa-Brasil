@@ -60,10 +60,11 @@ lupa-camara/
 
 Atualizar esta seção conforme o projeto avança — é o que dá contexto de "onde estamos" a cada nova sessão.
 
-- Módulo em andamento: **10 — IA Generativa: RAG e Fine-Tuning** (Módulos 1-9 concluídos)
-- Último entregável concluído: Módulo 9 — `notebooks/06_mlp_pytorch.ipynb` (MLP PR-AUC 0,3493 vs. LightGBM 0,4121 — árvore venceu, esperado em dado tabular), `notebooks/07_cnn_autoencoder_fashion_mnist.ipynb` (ResNet18 transfer learning 77,55% acurácia; Autoencoder MSE 0,020), `notebooks/08_lstm_gasto_mensal.ipynb` (LSTM MAE R$ 17.186 vs. baseline ingênuo R$ 16.778 — não superou, achado honesto), `docs/quando_usar_deep_learning.md`. Bônus (classificador de texto HuggingFace) deliberadamente não feito, é opcional na trilha.
+- Módulo em andamento: **11 — Engenharia de Software para Cientistas de Dados** (Módulos 1-10 concluídos)
+- Último entregável concluído: Módulo 10 — `src/rag_pipeline.py` (RAG 100% gratuito/local: embeddings `sentence-transformers` multilingue, FAISS, geração `google/flan-t5-base`), índice sobre 14.283 proposições reais (gerais 2023-2024 + 8 deputados via `idDeputadoAutor`). `docs/rag_eval.md` (avaliação honesta com 16 perguntas: recusa correta em 2/3 armadilhas, cita fonte real em 100% das respostas, mas citação por autor errada em 2/8 casos e geração em português fraca — 4/13 respostas com intrusão de inglês, por ser modelo majoritariamente treinado em inglês). `notebooks/09_finetuning_lora.ipynb` + `docs/finetuning_lora_vs_prompt.md` (LoRA no BERTimbau: 86% de acurácia treinando 0,27% dos parâmetros, vs. 27% do zero-shot com flan-t5 — quase nível de chute aleatório).
+- Decisão técnica: confiança do RAG calibrada empiricamente (distância L2 do FAISS: perguntas relevantes ~10-13, fora do domínio ~28-33) — fórmula inicial "chutada" havia recusado tudo.
 - Achado pendente (qualidade de dado, não resolvido): nomes de fornecedor fragmentados para suppliers menores sem CNPJ (só as 3 maiores companhias aéreas foram normalizadas no Módulo 3).
-- Próximo passo: Módulo 10 — pipeline de RAG (LangChain/LlamaIndex) sobre proposições legislativas, confidence scoring/fallback, avaliação com 15+ perguntas reais.
+- Próximo passo: Módulo 11 — refatorar em pacote `src/lupa/` (CookieCutter Data Science), testes pytest unitários+integração, ruff/black, GitHub Actions CI, API FastAPI com endpoint `/deputado/{nome}/resumo`.
 
 ## Como pedir ajuda aqui
 
